@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ndaloop 🗓️
 
-## Getting Started
+> Minimal, mobile-first day itinerary planner and sharing app. Built to run with an ultra-low memory footprint (~70 MB RAM) in Docker, ideal for self-hosting on older laptops, homelabs, or lightweight VMs.
 
-First, run the development server:
+![ndaloop Mobile Preview](https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/www/public/og.jpg) <!-- placeholder or replace with direct screenshot link if hosted -->
 
+---
+
+## Features
+
+- **Mobile-First & Minimal**: Designed specifically for quick mobile creation and on-the-go viewing.
+- **Zero Logins Required**:
+  - **Secret Edit Link** (`/edit/[token]`): Full control to add, edit, reorder, or delete stops.
+  - **Public Share Link** (`/i/[slug]`): Clean, distraction-free view for friends, family, or tour attendees.
+  - **Device History**: Your created itineraries are remembered in your browser's local storage for 1-tap access.
+- **Shared Real-Time Progress**: Checkboxes update the database so everyone in the group sees completed activities in real time.
+- **1-Tap Navigation**: Activity locations automatically generate direct Google Maps links.
+- **Native Sharing & Print Friendly**: Supports native Web Share API (Messages, WhatsApp, AirDrop) and clean `@media print` layout for 1-page paper itineraries.
+- **Ultra-Lightweight & Docker Ready**: Next.js standalone build running on Alpine Linux with embedded SQLite. Uses less than 75MB of RAM!
+
+---
+
+## 🚀 Quick Start (Docker Compose)
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repo-url> ndaloop
+cd ndaloop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Start with Docker Compose
+```bash
+docker compose up -d
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The app will automatically:
+1. Build the lightweight multi-stage Alpine Docker image.
+2. Initialize and migrate the SQLite database in `./data/itinerary.db`.
+3. Start the standalone server at **`http://localhost:3000`** (or your VM's IP address, e.g., `http://192.168.1.50:3000`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Check Status and Logs
+```bash
+# View running container status & resource usage (~70MB RAM)
+docker stats ndaloop-app --no-stream
 
-## Learn More
+# View server logs
+docker compose logs -f
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Stop the container
+```bash
+docker compose down
+```
+*(Your itineraries remain safe in the `./data/itinerary.db` volume on your host machine).*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💻 Hosting on an Old Laptop / VM (Server Guide)
 
-## Deploy on Vercel
+### 1. Port Forwarding / Network Access
+To access the app from your phone on your home Wi-Fi:
+- Find your laptop/VM's local IP address (`ip a` or `ifconfig`).
+- Open `http://<LAPTOP_LOCAL_IP>:3000` from your phone's browser.
+- (Optional) Use Cloudflare Tunnels or Tailscale if you want to access your itineraries from cellular outside your home network without opening router ports.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Auto-Start on System Boot
+The provided `docker-compose.yml` includes `restart: unless-stopped`, so Docker will automatically bring the app back up when the laptop or VM restarts.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Backups
+All itinerary data is stored in the single file `./data/itinerary.db`. To back it up:
+```bash
+cp ./data/itinerary.db ~/backup-itinerary.db
+```
+
+---
+
+## 🛠️ Local Development (Without Docker)
+
+```bash
+# Install dependencies
+npm install
+
+# Push database schema
+npx prisma db push
+
+# Run development server
+npm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 🏗️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, Standalone build)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Database & ORM**: SQLite with [Prisma ORM](https://www.prisma.io/)
+- **Container**: Multi-stage `node:22-alpine` with healthcheck

@@ -232,7 +232,7 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
     : 0;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 pb-28">
+    <div className="min-h-screen text-zinc-900 dark:text-zinc-100 pb-28">
       <Header />
 
       <main className="max-w-2xl mx-auto px-4 pt-6">
@@ -256,7 +256,7 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
             <Link
               href={`/i/${data.shareSlug}`}
               target="_blank"
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xs border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span>View Live</span>
@@ -265,7 +265,7 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
         </div>
 
         {/* Day Header Card */}
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-5 shadow-xs border border-zinc-200/80 dark:border-zinc-800 mb-6">
+        <div className="bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl p-5 shadow-xs border border-zinc-200/80 dark:border-zinc-800 mb-6">
           {!isEditingHeader ? (
             <div>
               <div className="flex items-start justify-between gap-4">
@@ -402,7 +402,7 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
             data.items.map((item, index) => (
               <div
                 key={item.id}
-                className={`group p-4 rounded-xl bg-white dark:bg-zinc-900 border transition-all ${
+                className={`group p-4 rounded-xl bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border transition-all ${
                   item.isCompleted
                     ? "border-emerald-200 dark:border-emerald-950/60 bg-emerald-50/20 dark:bg-emerald-950/10"
                     : "border-zinc-200/90 dark:border-zinc-800 shadow-2xs"
@@ -533,7 +533,7 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
         {/* Add Activity Form */}
         <form
           onSubmit={handleAddItem}
-          className="bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs"
+          className="bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs"
         >
           <div className="flex items-center gap-2 mb-3">
             <Plus className="w-4 h-4 text-zinc-500" />

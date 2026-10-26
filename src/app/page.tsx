@@ -120,13 +120,13 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 pb-20">
+    <div className="min-h-screen text-zinc-900 dark:text-zinc-100 pb-20">
       <Header />
 
       <main className="max-w-2xl mx-auto px-4 pt-8">
         {/* Minimal Hero */}
         <div className="mb-8 text-center sm:text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-200/80 dark:bg-zinc-800 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/60 dark:bg-zinc-800/60 backdrop-blur-xs border border-zinc-200/60 dark:border-zinc-700/50 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 mb-3">
             <Sparkles className="w-3 h-3 text-amber-500" />
             <span>Zero login • Mobile first • Fast sharing</span>
           </div>
@@ -141,7 +141,7 @@ export default function HomePage() {
         {/* Creation Card */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white dark:bg-zinc-900 rounded-2xl p-5 sm:p-7 shadow-sm border border-zinc-200/90 dark:border-zinc-800"
+          className="bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl p-5 sm:p-7 shadow-sm border border-zinc-200/90 dark:border-zinc-800"
         >
           {/* Title & Date */}
           <div className="space-y-4">
@@ -326,7 +326,7 @@ export default function HomePage() {
               {recentItineraries.map((itinerary) => (
                 <div
                   key={itinerary.editToken}
-                  className="group flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all shadow-2xs"
+                  className="group flex items-center justify-between p-3.5 rounded-xl bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all shadow-2xs"
                 >
                   <div className="min-w-0 pr-3">
                     <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">

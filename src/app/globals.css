@@ -3,23 +3,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #fafafa;
+  --background: #faf8f5;
   --foreground: #09090b;
 }
 
 .dark {
-  --background: #09090b;
+  --background: #050409;
   --foreground: #f4f4f5;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
+  min-height: 100vh;
+  /* Light mode: playful, elegant confetti pastel gradient */
+  background-color: #faf9f6;
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(254, 205, 211, 0.45) 0px, transparent 45%),
+    radial-gradient(at 85% 12%, rgba(199, 210, 254, 0.55) 0px, transparent 45%),
+    radial-gradient(at 50% 45%, rgba(254, 240, 138, 0.35) 0px, transparent 45%),
+    radial-gradient(at 10% 80%, rgba(233, 213, 255, 0.55) 0px, transparent 50%),
+    radial-gradient(at 85% 75%, rgba(186, 230, 253, 0.45) 0px, transparent 50%),
+    radial-gradient(at 50% 95%, rgba(254, 215, 226, 0.4) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dark body,
+html.dark body {
+  /* Dark mode: purple, black, and indigo ambient gradient */
+  background-color: #050409;
+  background-image:
+    radial-gradient(at 20% 12%, rgba(49, 46, 129, 0.5) 0px, transparent 55%),
+    radial-gradient(at 82% 18%, rgba(88, 28, 135, 0.45) 0px, transparent 50%),
+    radial-gradient(at 50% 55%, rgba(30, 27, 75, 0.6) 0px, transparent 60%),
+    radial-gradient(at 15% 85%, rgba(76, 29, 149, 0.4) 0px, transparent 55%),
+    radial-gradient(at 85% 82%, rgba(49, 46, 129, 0.45) 0px, transparent 55%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @media print {
   body {
     background: #ffffff !important;
+    background-image: none !important;
     color: #000000 !important;
   }
 }

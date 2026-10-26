@@ -98,7 +98,7 @@ export function PublicItineraryClient({
     : 0;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 pb-28 print:pb-0 print:bg-white print:text-black">
+    <div className="min-h-screen text-zinc-900 dark:text-zinc-100 pb-28 print:pb-0 print:bg-white print:text-black">
       <div className="print:hidden">
         <Header />
       </div>
@@ -106,7 +106,7 @@ export function PublicItineraryClient({
       <main className="max-w-xl mx-auto px-4 pt-6 sm:pt-8">
         {/* Top Floating Controls */}
         <div className="flex items-center justify-between mb-4 print:hidden">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50/90 dark:bg-emerald-950/60 backdrop-blur-xs text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Live Itinerary
           </div>
@@ -114,7 +114,7 @@ export function PublicItineraryClient({
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="p-2 rounded-xl text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition-colors"
+              className="p-2 rounded-xl text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-white/60 dark:hover:bg-zinc-800/60 backdrop-blur-xs transition-colors"
               title="Print itinerary"
               aria-label="Print itinerary"
             >
@@ -131,7 +131,7 @@ export function PublicItineraryClient({
         </div>
 
         {/* Day Header Card */}
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-xs border border-zinc-200/90 dark:border-zinc-800 mb-6 print:border-none print:shadow-none print:p-0">
+        <div className="bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl p-6 shadow-xs border border-zinc-200/90 dark:border-zinc-800 mb-6 print:border-none print:shadow-none print:p-0">
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
             {itinerary.title}
           </h1>
@@ -210,7 +210,7 @@ export function PublicItineraryClient({
 
                   {/* Card Content */}
                   <div
-                    className={`p-4 rounded-xl bg-white dark:bg-zinc-900 border transition-all ${
+                    className={`p-4 rounded-xl bg-white/85 dark:bg-zinc-900/80 backdrop-blur-md border transition-all ${
                       item.isCompleted
                         ? "border-emerald-200/80 dark:border-emerald-950/60 bg-emerald-50/15 dark:bg-emerald-950/10"
                         : "border-zinc-200/90 dark:border-zinc-800 shadow-2xs"

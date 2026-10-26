@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Plus, Compass } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { UserNav } from "./UserNav";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80">
+    <header className="sticky top-0 z-40 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-md border-b border-zinc-200/80 dark:border-zinc-800/80">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link
           href="/"
@@ -25,9 +26,10 @@ export function Header() {
 
         <div className="flex items-center gap-1.5 sm:gap-2">
           <ThemeToggle />
+          <UserNav />
           <Link
             href="/"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:opacity-90 transition-opacity shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Day</span>

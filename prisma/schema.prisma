@@ -8,10 +8,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  sessions     Session[]
+  itineraries  Itinerary[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
 model Itinerary {
   id          String          @id @default(cuid())
   shareSlug   String          @unique
   editToken   String          @unique
+  userId      String?
+  user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   title       String
   date        String?
   notes       String?

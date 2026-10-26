@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { generateEditToken, generateShareSlug } from "@/lib/utils";
+import { getCurrentUser } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 export async function createItineraryAction(data: {
@@ -24,6 +25,7 @@ export async function createItineraryAction(data: {
   const editToken = generateEditToken();
 
   try {
+    const currentUser = await getCurrentUser();
     const itinerary = await db.itinerary.create({
       data: {
         title,
@@ -31,6 +33,7 @@ export async function createItineraryAction(data: {
         notes: data.notes?.trim() || null,
         shareSlug,
         editToken,
+        userId: currentUser ? currentUser.id : undefined,
         items: data.initialItems && data.initialItems.length > 0
           ? {
               create: data.initialItems

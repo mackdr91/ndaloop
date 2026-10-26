@@ -16,6 +16,7 @@ import {
   Navigation,
   FileText,
   AlertCircle,
+  Bookmark,
 } from "lucide-react";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -31,6 +32,7 @@ import {
   reorderItemsAction,
   toggleItemCompletedAction,
 } from "@/app/actions/itinerary";
+import { claimItineraryAction, getSessionUserAction } from "@/app/actions/auth";
 
 export interface ItemData {
   id: string;
@@ -46,6 +48,7 @@ export interface ItineraryData {
   id: string;
   shareSlug: string;
   editToken: string;
+  userId?: string | null;
   title: string;
   date: string | null;
   notes: string | null;
@@ -67,6 +70,21 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
   const [newLocation, setNewLocation] = useState("");
   const [newNotes, setNewNotes] = useState("");
   const [isAddingItem, setIsAddingItem] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ id: string } | null>(null);
+
+  useEffect(() => {
+    getSessionUserAction().then(setCurrentUser);
+  }, []);
+
+  const handleClaim = async () => {
+    const res = await claimItineraryAction(data.editToken);
+    if (res.error) {
+      showToast(res.error, "error");
+    } else {
+      setData((prev) => ({ ...prev, userId: currentUser?.id }));
+      showToast("Saved to your account!");
+    }
+  };
 
   // Sync to local device storage
   useEffect(() => {
@@ -242,7 +260,17 @@ export function EditItineraryClient({ initialData }: { initialData: ItineraryDat
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
               Creator Mode
             </span>
-            <span className="text-xs text-zinc-400">All edits auto-save</span>
+            {currentUser && !data.userId && (
+              <button
+                onClick={handleClaim}
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-800 hover:bg-indigo-200 transition-colors"
+                title="Save this itinerary to your logged-in account"
+              >
+                <Bookmark className="w-3 h-3" />
+                <span>Save to Account</span>
+              </button>
+            )}
+            <span className="text-xs text-zinc-400 hidden sm:inline">All edits auto-save</span>
           </div>
 
           <div className="flex items-center gap-2">

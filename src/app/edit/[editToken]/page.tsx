@@ -43,6 +43,7 @@ export default async function EditPage({
     id: itinerary.id,
     shareSlug: itinerary.shareSlug,
     editToken: itinerary.editToken,
+    userId: itinerary.userId,
     title: itinerary.title,
     date: itinerary.date,
     notes: itinerary.notes,

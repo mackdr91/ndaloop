@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Copy, Check, Share2, ShieldAlert, Globe, X } from "lucide-react";
 import { showToast } from "./Toast";
 
@@ -13,10 +14,15 @@ interface ShareModalProps {
 }
 
 export function ShareModal({ isOpen, onClose, title, shareSlug, editToken }: ShareModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [copiedView, setCopiedView] = useState(false);
   const [copiedEdit, setCopiedEdit] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
 
   const origin = typeof window !== "undefined" ? window.location.origin : "";
   const publicUrl = `${origin}/i/${shareSlug}`;
@@ -64,12 +70,16 @@ export function ShareModal({ isOpen, onClose, title, shareSlug, editToken }: Sha
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-150">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-150"
+      onClick={onClose}
+    >
       <div
         className="w-full max-w-lg bg-white dark:bg-zinc-900 rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800 animate-in slide-in-from-bottom duration-200"
         role="dialog"
         aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800">
           <div>
@@ -168,6 +178,7 @@ export function ShareModal({ isOpen, onClose, title, shareSlug, editToken }: Sha
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
